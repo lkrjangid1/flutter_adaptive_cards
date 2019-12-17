@@ -209,7 +209,7 @@ class _AdaptiveCardState extends State<AdaptiveCard> {
       return widget.placeholder ?? const SizedBox();
     }
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(0.0),
       child: RawAdaptiveCard.fromMap(
         map,
         hostConfig,
@@ -374,6 +374,9 @@ class RawAdaptiveCardState extends State<RawAdaptiveCard> {
       child: InheritedReferenceResolver(
         resolver: _resolver,
         child: Card(
+          elevation:
+              _resolver.resolveElevation(widget.map["elevation"] ?? "default"),
+          borderOnForeground: false,
           child: child,
         ),
       ),
@@ -554,6 +557,17 @@ class ReferenceResolver {
     String colorValue = hostConfig["containerStyles"][style]["foregroundColors"]
         [firstCharacterToLowerCase(myColor)][subtleOrDefault];
     return parseColor(colorValue);
+  }
+
+  double resolveElevation(String value) {
+    double elevation = resolve("elevations", value ?? "default");
+    assert(
+        elevation != null,
+        "\n"
+        "Elevation '${value ?? "default"}' was not found in the host_config. \n\n"
+        "The available elevations were: \n\n"
+        "${(hostConfig["elevations"] as Map).entries.map((entry) => "${entry.key}: ${entry.value}\n").toList()}");
+    return elevation;
   }
 
   ReferenceResolver copyWith({String style}) {

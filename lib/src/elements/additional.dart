@@ -15,12 +15,14 @@ class SeparatorElement extends StatefulWidget with AdaptiveElementWidgetMixin {
 class _SeparatorElementState extends State<SeparatorElement>
     with AdaptiveElementMixin {
   double topSpacing;
+  double bottomSpacing;
   bool separator;
 
   @override
   void initState() {
     super.initState();
     topSpacing = resolver.resolveSpacing(adaptiveMap["spacing"]);
+    bottomSpacing = resolver.resolveSpacing(adaptiveMap["bottomSpacing"]);
     separator = adaptiveMap["separator"] ?? false;
   }
 
@@ -36,7 +38,10 @@ class _SeparatorElementState extends State<SeparatorElement>
             : SizedBox(
                 height: topSpacing,
               ),
-        widget.child
+        widget.child,
+        SizedBox(
+          height: bottomSpacing,
+        ),
       ],
     );
   }

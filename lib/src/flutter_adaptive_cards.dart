@@ -374,6 +374,7 @@ class RawAdaptiveCardState extends State<RawAdaptiveCard> {
       child: InheritedReferenceResolver(
         resolver: _resolver,
         child: Card(
+          margin: EdgeInsets.all(0.0),
           elevation:
               _resolver.resolveElevation(widget.map["elevation"] ?? "default"),
           borderOnForeground: false,

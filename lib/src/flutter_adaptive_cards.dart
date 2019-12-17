@@ -375,6 +375,8 @@ class RawAdaptiveCardState extends State<RawAdaptiveCard> {
         resolver: _resolver,
         child: Card(
           margin: EdgeInsets.all(0.0),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.zero)),
           elevation:
               _resolver.resolveElevation(widget.map["elevation"] ?? "default"),
           borderOnForeground: false,

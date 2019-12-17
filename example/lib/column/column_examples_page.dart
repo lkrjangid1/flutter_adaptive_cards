@@ -1,7 +1,6 @@
-
-
-import 'package:example/loading_adaptive_card.dart';
 import 'package:flutter/material.dart';
+
+import '../loading_adaptive_card.dart';
 
 class ColumnPage extends StatelessWidget {
   @override
@@ -12,11 +11,21 @@ class ColumnPage extends StatelessWidget {
       ),
       body: ListView(
         children: <Widget>[
-          DemoAdaptiveCard("lib/column/example1",),
-          DemoAdaptiveCard("lib/column/example2",),
-          DemoAdaptiveCard("lib/column/example3",),
-          DemoAdaptiveCard("lib/column/example4",),
-          DemoAdaptiveCard("lib/column/example5",),
+          DemoAdaptiveCard(
+            "lib/column/example1",
+          ),
+          DemoAdaptiveCard(
+            "lib/column/example2",
+          ),
+          DemoAdaptiveCard(
+            "lib/column/example3",
+          ),
+          DemoAdaptiveCard(
+            "lib/column/example4",
+          ),
+          DemoAdaptiveCard(
+            "lib/column/example5",
+          ),
         ],
       ),
     );

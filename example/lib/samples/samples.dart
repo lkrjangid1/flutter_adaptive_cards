@@ -1,10 +1,8 @@
-
-
-import 'package:example/loading_adaptive_card.dart';
 import 'package:flutter/material.dart';
 
-class SamplesPage extends StatelessWidget {
+import '../loading_adaptive_card.dart';
 
+class SamplesPage extends StatelessWidget {
   /*var items = [
     Text("Example1"),
     DemoAdaptiveCard("lib/samples/example1",),
@@ -49,7 +47,6 @@ class SamplesPage extends StatelessWidget {
         itemBuilder: (context, index) {
           return DemoAdaptiveCard("lib/samples/example${index + 1}");
         },
-
       ),
     );
   }

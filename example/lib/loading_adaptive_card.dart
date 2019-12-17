@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_adaptive_cards/src/flutter_adaptive_cards.dart';
+import 'package:flutter_adaptive_cards/flutter_adaptive_cards.dart';
 
 class LabAdaptiveCard extends StatelessWidget {
   const LabAdaptiveCard({Key key, this.payload}) : super(key: key);
@@ -18,8 +18,6 @@ class LabAdaptiveCard extends StatelessWidget {
   }
 }
 
-
-
 class DemoAdaptiveCard extends StatefulWidget {
   final String assetPath;
 
@@ -29,7 +27,8 @@ class DemoAdaptiveCard extends StatefulWidget {
   _DemoAdaptiveCardState createState() => new _DemoAdaptiveCardState();
 }
 
-class _DemoAdaptiveCardState extends State<DemoAdaptiveCard> with AutomaticKeepAliveClientMixin{
+class _DemoAdaptiveCardState extends State<DemoAdaptiveCard>
+    with AutomaticKeepAliveClientMixin {
   String jsonFile;
 
   @override

@@ -1,7 +1,6 @@
-
-
-import 'package:example/loading_adaptive_card.dart';
 import 'package:flutter/material.dart';
+
+import '../loading_adaptive_card.dart';
 
 class ImageSetPage extends StatelessWidget {
   @override
@@ -12,8 +11,12 @@ class ImageSetPage extends StatelessWidget {
       ),
       body: ListView(
         children: <Widget>[
-          DemoAdaptiveCard("lib/image_set/example1",),
-          DemoAdaptiveCard("lib/image_set/example2",),
+          DemoAdaptiveCard(
+            "lib/image_set/example1",
+          ),
+          DemoAdaptiveCard(
+            "lib/image_set/example2",
+          ),
         ],
       ),
     );

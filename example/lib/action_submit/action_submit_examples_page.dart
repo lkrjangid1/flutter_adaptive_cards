@@ -1,7 +1,6 @@
-
-
-import 'package:example/loading_adaptive_card.dart';
 import 'package:flutter/material.dart';
+
+import '../loading_adaptive_card.dart';
 
 class ActionSubmitPage extends StatelessWidget {
   @override
@@ -12,7 +11,9 @@ class ActionSubmitPage extends StatelessWidget {
       ),
       body: ListView(
         children: <Widget>[
-          DemoAdaptiveCard("lib/action_submit/example1",),
+          DemoAdaptiveCard(
+            "lib/action_submit/example1",
+          ),
         ],
       ),
     );

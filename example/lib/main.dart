@@ -1,5 +1,3 @@
-import 'package:example/samples/samples.dart';
-import 'package:example/text_block/text_block_examples_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart'
     show debugDefaultTargetPlatformOverride;
@@ -22,6 +20,9 @@ import 'inputs/input_text/input_text.dart';
 import 'inputs/input_time/input_time.dart';
 import 'inputs/input_toggle/input_toggle.dart';
 import 'media/media.dart';
+import 'samples/samples.dart';
+import 'text_block/text_block_examples_page.dart';
+
 void main() {
   debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
   runApp(new MyApp());
@@ -69,13 +70,11 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-
   @override
   _MyHomePageState createState() => new _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -101,7 +100,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   FlutterLogo(
                     size: 50.0,
                   ),
-                  Text("Flutter - Adaptive Cards \nby Neohelden", style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w600), textAlign: TextAlign.center,),
+                  Text(
+                    "Flutter - Adaptive Cards \nby Neohelden",
+                    style:
+                        TextStyle(fontSize: 24.0, fontWeight: FontWeight.w600),
+                    textAlign: TextAlign.center,
+                  ),
                 ],
               ),
             ),
@@ -124,22 +128,24 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-
   Widget getRow(List<String> element) {
     return Row(
-      children: element.map((it) => Expanded(child: getButton(it)),).toList(),
+      children: element
+          .map(
+            (it) => Expanded(child: getButton(it)),
+          )
+          .toList(),
     );
   }
 
   Widget getButton(String element) {
     return Card(
       child: InkWell(
-        onTap: () => pushNamed(element),
-        child: SizedBox(
-          height: 64.0,
-          child: Center(child: Text(element)),
-        )
-      ),
+          onTap: () => pushNamed(element),
+          child: SizedBox(
+            height: 64.0,
+            child: Center(child: Text(element)),
+          )),
     );
   }
 

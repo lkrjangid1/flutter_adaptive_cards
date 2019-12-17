@@ -1,10 +1,10 @@
-
-
-import 'package:example/loading_adaptive_card.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/foundation.dart'
     show debugDefaultTargetPlatformOverride;
+
+import 'loading_adaptive_card.dart';
+
 void main() {
   debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
   runApp(new MyApp());
@@ -31,7 +31,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -39,8 +38,9 @@ class _MyHomePageState extends State<MyHomePage> {
         title: new Text('Adpative cards lab'),
       ),
       body: new Center(
-       child: SingleChildScrollView(child: LabAdaptiveCard(
-         payload: '''
+        child: SingleChildScrollView(
+            child: LabAdaptiveCard(
+          payload: '''
 {  
                   "type":"AdaptiveCard",
                   "body":[  
@@ -132,9 +132,8 @@ class _MyHomePageState extends State<MyHomePage> {
                }
             
          ''',
-       )),
+        )),
       ),
     );
   }
 }
-

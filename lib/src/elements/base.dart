@@ -1,15 +1,14 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter_adaptive_cards/flutter_adaptive_cards.dart';
 import 'package:provider/provider.dart';
 
+import '../flutter_adaptive_cards.dart';
 
 class InheritedReferenceResolver extends StatelessWidget {
-
   final Widget child;
   final ReferenceResolver resolver;
 
-  const InheritedReferenceResolver({Key key, this.resolver, this.child}) : super(key: key);
+  const InheritedReferenceResolver({Key key, this.resolver, this.child})
+      : super(key: key);
 
   static ReferenceResolver of(BuildContext context) {
     return Provider.of<ReferenceResolver>(context, listen: false);
@@ -25,9 +24,7 @@ mixin AdaptiveElementWidgetMixin on StatefulWidget {
   Map get adaptiveMap;
 }
 
-
 mixin AdaptiveElementMixin<T extends AdaptiveElementWidgetMixin> on State<T> {
-
   String id;
 
   RawAdaptiveCardState widgetState;
@@ -46,35 +43,28 @@ mixin AdaptiveElementMixin<T extends AdaptiveElementWidgetMixin> on State<T> {
     } else {
       id = widgetState.idGenerator.getId();
     }
-
   }
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is AdaptiveElementMixin  &&
-              runtimeType == other.runtimeType &&
-              id == other.id;
+      other is AdaptiveElementMixin &&
+          runtimeType == other.runtimeType &&
+          id == other.id;
 
   @override
   int get hashCode => id.hashCode;
-
 }
 
-
-
-mixin AdaptiveActionMixin<T extends AdaptiveElementWidgetMixin> on State<T> implements AdaptiveElementMixin<T>{
-
+mixin AdaptiveActionMixin<T extends AdaptiveElementWidgetMixin> on State<T>
+    implements AdaptiveElementMixin<T> {
   String get title => widget.adaptiveMap["title"];
 
-
   void onTapped();
-
 }
 
-
-mixin AdaptiveInputMixin<T extends AdaptiveElementWidgetMixin> on State<T> implements AdaptiveElementMixin<T>{
-
+mixin AdaptiveInputMixin<T extends AdaptiveElementWidgetMixin> on State<T>
+    implements AdaptiveElementMixin<T> {
   String value;
 
   @override
@@ -84,27 +74,23 @@ mixin AdaptiveInputMixin<T extends AdaptiveElementWidgetMixin> on State<T> imple
         ? ""
         : adaptiveMap["value"].toString();
   }
+
   void appendInput(Map map);
 }
 
-mixin AdaptiveTextualInputMixin<T extends AdaptiveElementWidgetMixin> on State<T> implements AdaptiveInputMixin<T> {
-
+mixin AdaptiveTextualInputMixin<T extends AdaptiveElementWidgetMixin>
+    on State<T> implements AdaptiveInputMixin<T> {
   String placeholder;
-
 
   @override
   void initState() {
     super.initState();
 
     placeholder = widget.adaptiveMap["placeholder"] ?? "";
-
   }
 }
 
-
-
 abstract class GenericAction {
-
   GenericAction(this.adaptiveMap, this.rawAdaptiveCardState);
 
   String get title => adaptiveMap["title"];
@@ -112,12 +98,12 @@ abstract class GenericAction {
   final RawAdaptiveCardState rawAdaptiveCardState;
 
   void tap();
-
 }
 
-
 class GenericSubmitAction extends GenericAction {
-  GenericSubmitAction(Map adaptiveMap, RawAdaptiveCardState rawAdaptiveCardState) : super(adaptiveMap, rawAdaptiveCardState) {
+  GenericSubmitAction(
+      Map adaptiveMap, RawAdaptiveCardState rawAdaptiveCardState)
+      : super(adaptiveMap, rawAdaptiveCardState) {
     data = adaptiveMap["data"] ?? {};
   }
 
@@ -126,11 +112,12 @@ class GenericSubmitAction extends GenericAction {
   void tap() {
     rawAdaptiveCardState.submit(data);
   }
-
 }
 
 class GenericActionOpenUrl extends GenericAction {
-  GenericActionOpenUrl(Map adaptiveMap, RawAdaptiveCardState rawAdaptiveCardState) : super(adaptiveMap, rawAdaptiveCardState) {
+  GenericActionOpenUrl(
+      Map adaptiveMap, RawAdaptiveCardState rawAdaptiveCardState)
+      : super(adaptiveMap, rawAdaptiveCardState) {
     url = adaptiveMap["url"];
   }
 
@@ -140,5 +127,4 @@ class GenericActionOpenUrl extends GenericAction {
   void tap() {
     rawAdaptiveCardState.openUrl(url);
   }
-
 }

@@ -1,7 +1,6 @@
-
-
-import 'package:example/loading_adaptive_card.dart';
 import 'package:flutter/material.dart';
+
+import '../loading_adaptive_card.dart';
 
 class MediaPage extends StatelessWidget {
   @override
@@ -12,7 +11,9 @@ class MediaPage extends StatelessWidget {
       ),
       body: ListView(
         children: <Widget>[
-          DemoAdaptiveCard("lib/media/example1",),
+          DemoAdaptiveCard(
+            "lib/media/example1",
+          ),
         ],
       ),
     );

@@ -1,7 +1,6 @@
-
-
-import 'package:example/loading_adaptive_card.dart';
 import 'package:flutter/material.dart';
+
+import '../../loading_adaptive_card.dart';
 
 class InputChoiceSetPage extends StatelessWidget {
   @override
@@ -12,7 +11,9 @@ class InputChoiceSetPage extends StatelessWidget {
       ),
       body: ListView(
         children: <Widget>[
-          DemoAdaptiveCard("lib/inputs/input_choice_set/example1",),
+          DemoAdaptiveCard(
+            "lib/inputs/input_choice_set/example1",
+          ),
         ],
       ),
     );

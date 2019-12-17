@@ -1,7 +1,6 @@
-
-
-import 'package:example/loading_adaptive_card.dart';
 import 'package:flutter/material.dart';
+
+import '../../loading_adaptive_card.dart';
 
 class InputText extends StatelessWidget {
   @override
@@ -12,8 +11,12 @@ class InputText extends StatelessWidget {
       ),
       body: ListView(
         children: <Widget>[
-          DemoAdaptiveCard("lib/inputs/input_text/example1",),
-          DemoAdaptiveCard("lib/inputs/input_text/example2",),
+          DemoAdaptiveCard(
+            "lib/inputs/input_text/example1",
+          ),
+          DemoAdaptiveCard(
+            "lib/inputs/input_text/example2",
+          ),
         ],
       ),
     );

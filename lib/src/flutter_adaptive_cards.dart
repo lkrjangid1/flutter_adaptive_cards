@@ -67,13 +67,15 @@ class NetworkAdaptiveCardContentProvider extends AdaptiveCardContentProvider {
 class AdaptiveCard extends StatefulWidget {
   AdaptiveCard({
     Key key,
-    @required this.adaptiveCardContentProvider,
+    @required this.map,
+    @required this.hostConfig,
     this.placeholder,
     this.cardRegistry = const CardRegistry(),
     this.onSubmit,
     this.onOpenUrl,
     this.showDebugJson = true,
     this.approximateDarkThemeColors = true,
+    this.isAsync = false,
   }) : super(key: key);
 
   AdaptiveCard.network({
@@ -86,6 +88,7 @@ class AdaptiveCard extends StatefulWidget {
     this.onOpenUrl,
     this.showDebugJson = true,
     this.approximateDarkThemeColors = true,
+    this.isAsync = true,
   }) : adaptiveCardContentProvider = NetworkAdaptiveCardContentProvider(
             url: url, hostConfigPath: hostConfigPath);
 
@@ -99,6 +102,7 @@ class AdaptiveCard extends StatefulWidget {
     this.onOpenUrl,
     this.showDebugJson = true,
     this.approximateDarkThemeColors = true,
+    this.isAsync = true,
   }) : adaptiveCardContentProvider = AssetAdaptiveCardContentProvider(
             path: assetPath, hostConfigPath: hostConfigPath);
 
@@ -112,10 +116,11 @@ class AdaptiveCard extends StatefulWidget {
     this.onOpenUrl,
     this.showDebugJson = true,
     this.approximateDarkThemeColors = true,
+    this.isAsync = true,
   }) : adaptiveCardContentProvider = MemoryAdaptiveCardContentProvider(
             content: content, hostConfigPath: hostConfigPath);
 
-  final AdaptiveCardContentProvider adaptiveCardContentProvider;
+  AdaptiveCardContentProvider adaptiveCardContentProvider;
 
   final Widget placeholder;
 
@@ -125,15 +130,15 @@ class AdaptiveCard extends StatefulWidget {
   final Function(String url) onOpenUrl;
   final bool showDebugJson;
   final bool approximateDarkThemeColors;
+  bool isAsync;
+  Map map;
+  Map hostConfig;
 
   @override
   _AdaptiveCardState createState() => new _AdaptiveCardState();
 }
 
 class _AdaptiveCardState extends State<AdaptiveCard> {
-  Map map;
-  Map hostConfig;
-
   CardRegistry cardRegistry;
 
   Function(Map map) onSubmit;
@@ -142,22 +147,24 @@ class _AdaptiveCardState extends State<AdaptiveCard> {
   @override
   void initState() {
     super.initState();
-    widget.adaptiveCardContentProvider.loadHostConfig().then((hostConfigMap) {
-      setState(() {
-        if (mounted) {
-          hostConfig = hostConfigMap;
-        }
+    if (widget.isAsync) {
+      widget.adaptiveCardContentProvider.loadHostConfig().then((hostConfigMap) {
+        setState(() {
+          if (mounted) {
+            widget.hostConfig = hostConfigMap;
+          }
+        });
       });
-    });
-    widget.adaptiveCardContentProvider
-        .loadAdaptiveCardContent()
-        .then((adaptiveMap) {
-      setState(() {
-        if (mounted) {
-          map = adaptiveMap;
-        }
+      widget.adaptiveCardContentProvider
+          .loadAdaptiveCardContent()
+          .then((adaptiveMap) {
+        setState(() {
+          if (mounted) {
+            widget.map = adaptiveMap;
+          }
+        });
       });
-    });
+    }
   }
 
   @override
@@ -205,14 +212,14 @@ class _AdaptiveCardState extends State<AdaptiveCard> {
 
   @override
   Widget build(BuildContext context) {
-    if (map == null || hostConfig == null) {
+    if (widget.isAsync && (widget.map == null || widget.hostConfig == null)) {
       return widget.placeholder ?? const SizedBox();
     }
     return Padding(
       padding: const EdgeInsets.all(0.0),
       child: RawAdaptiveCard.fromMap(
-        map,
-        hostConfig,
+        widget.map,
+        widget.hostConfig,
         cardRegistry: cardRegistry,
         onOpenUrl: onOpenUrl,
         onSubmit: onSubmit,
@@ -375,8 +382,7 @@ class RawAdaptiveCardState extends State<RawAdaptiveCard> {
         resolver: _resolver,
         child: Card(
           margin: EdgeInsets.all(0.0),
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.zero)),
+          shape: Border.all(color: Colors.transparent),
           elevation:
               _resolver.resolveElevation(widget.map["elevation"] ?? "default"),
           borderOnForeground: false,

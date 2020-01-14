@@ -107,8 +107,9 @@ class _AdaptiveNumberInputState extends State<AdaptiveNumberInput>
         inputFormatters: [
           TextInputFormatter.withFunction((oldVal, newVal) {
             if (newVal.text == "") return newVal;
-            int newNumber = int.parse(newVal.text);
-            if (newNumber >= min && newNumber <= max) return newVal;
+            int newNumber = int.tryParse(newVal.text);
+            if (newNumber != null && newNumber >= min && newNumber <= max)
+              return newVal;
             return oldVal;
           })
         ],

@@ -86,8 +86,8 @@ class _AdaptiveNumberInputState extends State<AdaptiveNumberInput>
     with AdaptiveTextualInputMixin, AdaptiveInputMixin, AdaptiveElementMixin {
   TextEditingController controller = TextEditingController();
 
-  int min;
-  int max;
+  var min;
+  var max;
 
   @override
   void initState() {

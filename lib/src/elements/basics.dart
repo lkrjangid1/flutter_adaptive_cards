@@ -95,6 +95,7 @@ class AdaptiveCardElementState extends State<AdaptiveCardElement>
       actionWidget = Column(
         children: actionWidgets,
         mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
       );
     } else {
       actionWidget = Row(

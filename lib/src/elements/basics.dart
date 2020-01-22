@@ -85,6 +85,7 @@ class AdaptiveCardElementState extends State<AdaptiveCardElement>
     // Adds the actions
     List<Widget> actionWidgets = allActions
         .map((action) => Padding(
+              padding: EdgeInsets.only(right: 0),
               child: action,
             ))
         .toList();

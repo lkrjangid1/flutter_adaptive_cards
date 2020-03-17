@@ -86,7 +86,7 @@ class AdaptiveCardElementState extends State<AdaptiveCardElement>
     // Adds the actions
     List<Widget> actionWidgets = allActions
         .map((action) => Padding(
-              padding: EdgeInsets.only(right: 8),
+              padding: EdgeInsets.only(right: 0),
               child: action,
             ))
         .toList();
@@ -96,6 +96,7 @@ class AdaptiveCardElementState extends State<AdaptiveCardElement>
       actionWidget = Column(
         children: actionWidgets,
         mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
       );
     } else {
       actionWidget = Row(

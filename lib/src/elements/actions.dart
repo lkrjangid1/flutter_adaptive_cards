@@ -121,10 +121,15 @@ class _AdaptiveActionSubmitState extends State<AdaptiveActionSubmit>
 
   @override
   Widget build(BuildContext context) {
-    return RaisedButton(
-      color: widget.color,
+    return FlatButton(
+      color:  new Color(0xFF1b4f80),
+      textColor: new Color(0xFF0088DB),
       onPressed: onTapped,
-      child: Text(title),
+      child: Text(title,
+        style: TextStyle(
+          color: Colors.white,
+        ),
+      ),
     );
   }
 

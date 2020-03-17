@@ -147,6 +147,8 @@ class _AdaptiveCardState extends State<AdaptiveCard> {
   @override
   void initState() {
     super.initState();
+    print("in AdaptiveCard init");
+    print(json.encode(widget.map));
     if (widget.isAsync) {
       widget.adaptiveCardContentProvider.loadHostConfig().then((hostConfigMap) {
         setState(() {
@@ -215,6 +217,8 @@ class _AdaptiveCardState extends State<AdaptiveCard> {
     if (widget.isAsync && (widget.map == null || widget.hostConfig == null)) {
       return widget.placeholder ?? const SizedBox();
     }
+    print("in AdaptiveCard build");
+    print(json.encode(widget.map));
     return Padding(
       padding: const EdgeInsets.all(0.0),
       child: RawAdaptiveCard.fromMap(
@@ -282,7 +286,9 @@ class RawAdaptiveCardState extends State<RawAdaptiveCard> {
     idGenerator = UUIDGenerator();
     cardRegistry = widget.cardRegistry;
 
-    _adaptiveElement = widget.cardRegistry.getElement(widget.map);
+    _adaptiveElement = widget.cardRegistry.getBaseElement(widget.map);
+    print("in RawAdaptiveCard");
+    print(json.encode(widget.map));
   }
 
   /// Every widget can access method of this class, meaning setting the state

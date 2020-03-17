@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../flutter_adaptive_cards.dart';
 import '../utils.dart';
@@ -170,7 +171,8 @@ class _AdaptiveTextBlockState extends State<AdaptiveTextBlock>
     horizontalAlignment = loadAlignment();
     maxLines = loadMaxLines();
 
-    text = parseTextString(adaptiveMap['text']);
+    // text = parseTextString(adaptiveMap['text']);
+    text = adaptiveMap['text'];
   }
   /*child: Text(
             text,
@@ -198,11 +200,19 @@ class _AdaptiveTextBlockState extends State<AdaptiveTextBlock>
           data: text,
           styleSheet: loadMarkdownStyleSheet(),
           onTapLink: (href) {
-            RawAdaptiveCardState.of(context).openUrl(href);
+            _launchURL(href);
           },
         ),
       ),
     );
+  }
+
+  _launchURL(url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   /*String textCappedWithMaxLines() {
@@ -244,11 +254,12 @@ class _AdaptiveTextBlockState extends State<AdaptiveTextBlock>
   /// TODO Markdown still has some problems
   MarkdownStyleSheet loadMarkdownStyleSheet() {
     TextStyle style = TextStyle(
-        fontWeight: fontWeight,
-        fontSize: fontSize,
-        color: getColor(Theme.of(context).brightness));
+      fontWeight: fontWeight,
+      fontSize: fontSize,
+      color: getColor(Theme.of(context).brightness),
+    );
     return MarkdownStyleSheet(
-      a: style,
+      a: style.copyWith(color: Color.fromRGBO(4, 164, 255, 1)),
       blockquote: style,
       code: style,
       em: style,

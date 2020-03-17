@@ -49,7 +49,7 @@ class CardRegistry {
     if (addedElements.containsKey(stringType)) {
       return addedElements[stringType](map);
     } else {
-      return _getBaseElement(map);
+      return getBaseElement(map);
     }
   }
 
@@ -90,7 +90,7 @@ class CardRegistry {
   /// This returns an [AdaptiveElement] with the correct type.
   ///
   /// It looks at the [type] property and decides which object to construct
-  Widget _getBaseElement(Map<String, dynamic> map) {
+  Widget getBaseElement(Map<String, dynamic> map) {
     String stringType = map["type"];
 
     switch (stringType) {
